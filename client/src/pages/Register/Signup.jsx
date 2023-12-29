@@ -7,6 +7,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   async function registerUser(event) {
     event.preventDefault();
@@ -35,7 +36,6 @@ const Signup = () => {
       // Handle error (e.g., show an error message to the user)
     }
   }
-  const navigate = useNavigate();
 
   async function loginUser(event) {
     event.preventDefault();
@@ -59,7 +59,7 @@ const Signup = () => {
       const data = await response.json();
       if (data.user) {
         alert("Login Successful");
-        navigate("/landing");
+        navigate("/Dashboard");
       } else {
         alert("Login Failed");
       }
