@@ -6,6 +6,7 @@ import Landing from "./pages/Landing/Landing";
 import Hire from "./pages/HireFreelancers/Hire";
 import Signin from "./pages/Login/Signin";
 import Signup from "./pages/Register/Signup";
+import Dashbard from "./pages/dashboard/Dashbard";
 
 function App() {
   const location = useLocation();
@@ -25,8 +26,8 @@ function App() {
           }
         />
         <Route path="/Landing" element={<Landing />} />
-
         <Route path="/hire" element={<Hire/>} />
+        <Route path="/dashboard" element={<Dashbard/>}/>
         <Route path="/" element={<Navigate to="/landing" state={{ direction: "forward" }} />} />
       </Routes>
     </div>

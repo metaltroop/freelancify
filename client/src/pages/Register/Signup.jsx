@@ -10,68 +10,65 @@ const Signup = () => {
 
   async function registerUser(event) {
     event.preventDefault();
- 
+
     try {
       const response = await fetch("http://localhost:3001/api/register", {
         method: "POST",
-          headers: {
-             "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-             email: email,
-             password: password,
-             username: Username,
-          }),
-       });
- 
-       if (!response.ok) {
-          throw new Error("Registration failed");
-       }
- 
-       const data = await response.json();
-       console.log(data);
-    } catch (error) {
-       console.error("Registration error:", error.message);
-       // Handle error (e.g., show an error message to the user)
-    }
- }
- const navigate = useNavigate();
-
-
- async function loginUser(event) {
-  event.preventDefault();
-
-  try {
-    const response = await fetch("http://localhost:3001/api/login", {
-      method: "POST",
         headers: {
-           "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-           email: email,
-           password: password,
+          email: email,
+          password: password,
+          username: Username,
         }),
-     });
+      });
 
-     if (!response.ok) {
+      if (!response.ok) {
         throw new Error("Registration failed");
-     }
+      }
 
-     const data = await response.json();
-     if(data.user){
-      alert('Login Successful');
-      navigate('/landing')
-     }else{
-      alert('Login Failed');
-     }
-     console.log(data);
-  } catch (error) {
-     console.error("Registration error:", error.message);
-     // Handle error (e.g., show an error message to the user)
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Registration error:", error.message);
+      // Handle error (e.g., show an error message to the user)
+    }
   }
-}
- 
- 
+  const navigate = useNavigate();
+
+  async function loginUser(event) {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3001/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      const data = await response.json();
+      if (data.user) {
+        alert("Login Successful");
+        navigate("/landing");
+      } else {
+        alert("Login Failed");
+      }
+      console.log(data);
+    } catch (error) {
+      console.error("Registration error:", error.message);
+      // Handle error (e.g., show an error message to the user)
+    }
+  }
 
   const [btnState, setBtnState] = useState(false);
 
@@ -92,7 +89,7 @@ const Signup = () => {
       </div>
 
       <div className="">
-        <form onSubmit={(event) => loginUser(event)} >
+        <form onSubmit={(event) => loginUser(event)}>
           <div className={`Register${toggleFormCheck}`}>
             <div className="flex">
               <div
@@ -139,7 +136,6 @@ const Signup = () => {
                         ></path>
                       </svg>
                       <input
-                        
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         type="Email"
@@ -278,7 +274,10 @@ const Signup = () => {
                       </label>
                     </div>
                   </div>
-                  <button type="submit" className="p-2 shadow-2xl text-slate-200 bg-slate-600 rounded-md">
+                  <button
+                    type="submit"
+                    className="p-2 shadow-2xl text-slate-200 bg-slate-600 rounded-md"
+                  >
                     REgister
                   </button>
                 </div>
