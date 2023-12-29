@@ -39,7 +39,8 @@ const Signup = () => {
 
   async function loginUser(event) {
     event.preventDefault();
-
+    console.log("hello");
+    
     try {
       const response = await fetch("http://localhost:3001/api/login", {
         method: "POST",
@@ -51,25 +52,30 @@ const Signup = () => {
           password: password,
         }),
       });
-
+  
       if (!response.ok) {
-        throw new Error("Registration failed");
+        throw new Error("Login failed");
       }
-
-      const data = await response.json();
-      if (data.user) {
-        alert("Login Successful");
+  
+      const data = await response.json(); // Parse JSON response
+  
+      if (data.token) {
+        console.log("Login Successful", data);
+        alert("login successfull");
+        // You might want to store the token in your state or context for further use
+        // For example, you can use a state management library or React context API
         navigate("/Dashboard");
       } else {
+        console.error("Login Failed", data);
         alert("Login Failed");
       }
-      console.log(data);
     } catch (error) {
-      console.error("Registration error:", error.message);
-      // Handle error (e.g., show an error message to the user)
+      console.error("Login error:", error);
+      alert("An error occurred during login. Please try again.");
     }
   }
-
+  
+  
   const [btnState, setBtnState] = useState(false);
 
   function handleClick() {

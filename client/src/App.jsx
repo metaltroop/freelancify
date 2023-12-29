@@ -7,12 +7,14 @@ import Hire from "./pages/HireFreelancers/Hire";
 import Signin from "./pages/Login/Signin";
 import Signup from "./pages/Register/Signup";
 import Dashbard from "./pages/dashboard/Dashbard";
+import { AuthProvider } from "./auth/AuthProvider";
 
 function App() {
   const location = useLocation();
   const [direction, setDirection] = useState("forward");
 
   return (
+    <AuthProvider>
     <div className="min-h-screen w-[100%]">
       <Routes location={location}>
         <Route
@@ -31,6 +33,7 @@ function App() {
         <Route path="/" element={<Navigate to="/landing" state={{ direction: "forward" }} />} />
       </Routes>
     </div>
+    </AuthProvider>
 // mmmm
   );
 }

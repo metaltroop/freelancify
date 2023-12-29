@@ -1,43 +1,34 @@
-// // import {useHistory} from 'react-router-dom'
-// import { useEffect } from "react"
-// import { useNavigate } from "react-router-dom"
-// import jwt from 'jsonwebtoken'
+// Dashboard.jsx
+import { useEffect } from "react";
+import useAuth from "../../auth/useAuth";
 
-const Dashbard = () => {
+const Dashboard = () => {
+  const { requireAuth, isAuthenticated } = useAuth();
 
-    // const navigate = useNavigate();
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await requireAuth();
+        // User is authenticated, continue with the dashboard rendering logic
+      } catch (error) {
+        // User is not authenticated, handle the unauthenticated state (e.g., redirect to sign-in page)
+        console.error("User not authenticated", error);
+      }
+    };
 
-    // async function populateQuote(){
-    //     const req = await fetch('http://localhost:1337/api/quote',{
-    //         headers: {
-    //             'x-access-token' : localStorage.getItem('token'),
-    //         },
-    //     })
-    //     const data = req.json()
-    //     console.log(data)
-    // }
+    checkAuth();
+  }, [requireAuth, isAuthenticated]);
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem("token")
-
-    //     if(token){
-    //         const user = jwt.decode(token)
-    //         if(!user) {
-    //             localStorage.removeItem('token')
-    //             navigate('/dashboard')
-    //         }
-    //         else{
-    //             populateQuote()
-    //         }
-            
-    //     }
-
-    // }, [])
-
+  // Render nothing if the user is not authenticated
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
-    <div>Dashbard</div>
-  )
-}
+    <div>
+      <h1>Hello Dashboard</h1>
+    </div>
+  );
+};
 
-export default Dashbard
+export default Dashboard;
