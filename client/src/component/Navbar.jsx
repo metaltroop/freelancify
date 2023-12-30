@@ -1,30 +1,31 @@
 import { Link } from "react-router-dom";
-import { Link as ScrollLink } from 'react-scroll';
-import {useEffect, useState} from "react";
-
-import Logo from '../assets/with-text.png';
+import { useContext, useEffect } from "react";
+import { Link as ScrollLink } from "react-scroll";
+import { UserContext } from "../UserContext";
+import Logo from "../assets/with-text.png";
 
 const Navbar = () => {
-  // const location = useLocation();
+  const { setUserInfo, userInfo } = useContext(UserContext);
 
-  const [email , setEmail] = useState(null);
   useEffect(() => {
-    fetch('http://localhost:3001/profile',{
-      credentials:'include' , 
-    }).then(response => {
-      response.json().then(userInfo => {
-        setEmail(userInfo.email);
-      })
-    })
-  } , [])
+    fetch("http://localhost:3001/profile", {
+      credentials: "include",
+    }).then((response) => {
+      response.json().then((userInfo) => {
+        setUserInfo(userInfo);
+      });
+    });
+  }, [setUserInfo]);
 
   function logout() {
-    fetch('http://localhost:3001/logout', {
-      credentials: 'include' ,
-      method: 'POST',
+    fetch("http://localhost:3001/logout", {
+      credentials: "include",
+      method: "POST",
     });
-    setEmail(null)
+    setUserInfo(null);
   }
+
+  const email = userInfo?.email;
 
   return (
     <nav className="bg-[#ffffffd8] border-opacity-25 rounded-full flex justify-between items-center fixed w-[90%] z-20 shadow-xl mt-4 ml-28">
@@ -32,14 +33,14 @@ const Navbar = () => {
         <img src={Logo} alt="logo" className="w-20px h-20" />
       </div>
       <div className="border-gray-900">
-        <ul className="font-medium flex gap-10 p-4  rounded-lg">
+        <ul className="font-medium flex gap-10 p-4 rounded-lg">
           <li>
-            <Link to="/" className="text-gray-700 ">
+            <Link to="/" className="text-gray-700">
               Home
             </Link>
           </li>
           <li>
-            <Link to="/" className="text-gray-700">
+            <Link to="/freelancers" className="text-gray-700">
               Find Freelancers
             </Link>
           </li>
@@ -49,7 +50,7 @@ const Navbar = () => {
               spy={true}
               smooth={true}
               duration={500}
-              className="text-gray-700"
+              className="text-gray-700 cursor-pointer"
             >
               About Us
             </ScrollLink>
@@ -60,9 +61,8 @@ const Navbar = () => {
               spy={true}
               smooth={true}
               duration={500}
-              className="text-gray-700"
+              className="text-gray-700 cursor-pointer"
             >
-              {" "}
               Contact Us
             </ScrollLink>
           </li>
@@ -72,8 +72,7 @@ const Navbar = () => {
         <ul className="flex gap-3">
           {email && (
             <>
-              <Link to="/create">Create New Post</Link>
-              <a onClick={logout}>Logout</a>
+              <a className="rounded-full bg-blue-500 text-white px-4 py-2" onClick={logout}>Logout</a>
             </>
           )}
           {!email && (

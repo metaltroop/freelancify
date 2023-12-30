@@ -1,13 +1,17 @@
 import "./signup.css";
 import Logo from "../../assets/with-text.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {useContext, useState } from "react";
+import { UserContext } from "../../UserContext";
+
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
   // const [redirect, setRedirect] = useState(false);
+  const {setUserInfo} = useContext(UserContext);
+
 
   const navigate = useNavigate();
 
@@ -38,8 +42,12 @@ const Signup = () => {
 
     if (response.ok) {
         // setRedirect(true);
+        response.json().then(userInfo => {
+          setUserInfo(userInfo);
+          // setRedirect(true);
         alert("login successfull")
         navigate('/landing')
+    });
     }else{
         alert('wrong credentials');
     }

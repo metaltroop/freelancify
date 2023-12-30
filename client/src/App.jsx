@@ -8,6 +8,7 @@ import Signin from "./pages/Login/Signin";
 import Signup from "./pages/Register/Signup";
 import Dashbard from "./pages/dashboard/Dashbard";
 import Protected from "./component/Protected";
+import { UserContextProvider } from "./UserContext";
 // import { UserContextProvider } from "./UserContext";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   return (
     
     <div className="min-h-screen w-[100%]">
-
+      <UserContextProvider>
       <Routes location={location}>
         <Route
           path="/Signin"
@@ -34,7 +35,7 @@ function App() {
         <Route path="/dashboard" element={<Protected Component={Dashbard}/>}/>
         <Route path="/" element={<Navigate to="/landing" state={{ direction: "forward" }} />} />
       </Routes>
-
+      </UserContextProvider>
     </div>
 
 // mmmm
