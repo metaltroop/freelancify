@@ -7,73 +7,46 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
+  // const [redirect, setRedirect] = useState(false);
+
   const navigate = useNavigate();
 
-  async function registerUser(event) {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost:3001/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          username: Username,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Registration failed");
-      }
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Registration error:", error.message);
-      // Handle error (e.g., show an error message to the user)
+  async function register(ev) {
+    ev.preventDefault();
+    const response = await fetch("http://localhost:3001/api/register", {
+      method: "POST",
+      body: JSON.stringify({ Username,email, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+        alert('registration successful');
+    }else{
+        alert('registration failed')
     }
   }
 
-  async function loginUser(event) {
-    event.preventDefault();
-    console.log("hello");
-    
-    try {
-      const response = await fetch("http://localhost:3001/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  async function login(ev){
+    ev.preventDefault();
+    const response = await fetch('http://localhost:3001/api/login' , {
+        method: 'POST',
         body: JSON.stringify({
-          email: email,
-          password: password,
+            email, password
         }),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-  
-      const data = await response.json(); // Parse JSON response
-  
-      if (data.token) {
-        console.log("Login Successful", data);
-        alert("login successfull");
-        // You might want to store the token in your state or context for further use
-        // For example, you can use a state management library or React context API
-        navigate("/Dashboard");
-      } else {
-        console.error("Login Failed", data);
-        alert("Login Failed");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("An error occurred during login. Please try again.");
+        headers: {'Content-Type' :'application/json'},
+        credentials: 'include', 
+    })
+
+    if (response.ok) {
+        // setRedirect(true);
+        alert("login successfull")
+        navigate('/landing')
+    }else{
+        alert('wrong credentials');
     }
+
   }
+  
+  
   
   
   const [btnState, setBtnState] = useState(false);
@@ -95,7 +68,7 @@ const Signup = () => {
       </div>
 
       <div className="">
-        <form onSubmit={(event) => loginUser(event)}>
+        <form onSubmit={login}>
           <div className={`Register${toggleFormCheck}`}>
             <div className="flex">
               <div
@@ -143,7 +116,7 @@ const Signup = () => {
                       </svg>
                       <input
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(ev) => setEmail(ev.target.value)}
                         type="Email"
                         className="bg-transparent p-2 focus:outline-none"
                         placeholder="James Bond"
@@ -165,7 +138,7 @@ const Signup = () => {
                         <div>
                           <input
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(ev) => setPassword(ev.target.value)}
                             type="password"
                             className="bg-transparent p-2 focus:outline-none"
                             placeholder="Password"
@@ -191,7 +164,7 @@ const Signup = () => {
           </div>
         </form>
 
-        <form onSubmit={(event) => registerUser(event)}>
+        <form onSubmit={register}>
           <div className={`RegisterForm${toggleClassCheck}`}>
             <div className="w-[100%] flex h-screen fixed">
               <div className="mt-60 ml-80 w-[65%]  justify-center items-center">
@@ -223,7 +196,7 @@ const Signup = () => {
                       </svg>
                       <input
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(ev) => setEmail(ev.target.value)}
                         type="Email"
                         className="bg-transparent p-2 focus:outline-none"
                         placeholder=" Email Address"
@@ -246,7 +219,7 @@ const Signup = () => {
                       </svg>
                       <input
                         value={Username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(ev) => setUsername(ev.target.value)}
                         type="text"
                         className="bg-transparent p-2 focus:outline-none"
                         placeholder="Username"
@@ -266,7 +239,7 @@ const Signup = () => {
                       </div>
                       <input
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(ev) => setPassword(ev.target.value)}
                         type="password"
                         className="bg-transparent p-2 focus:outline-none"
                         placeholder="Password"

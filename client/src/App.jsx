@@ -7,15 +7,17 @@ import Hire from "./pages/HireFreelancers/Hire";
 import Signin from "./pages/Login/Signin";
 import Signup from "./pages/Register/Signup";
 import Dashbard from "./pages/dashboard/Dashbard";
-import { AuthProvider } from "./auth/AuthProvider";
+import Protected from "./component/Protected";
+// import { UserContextProvider } from "./UserContext";
 
 function App() {
   const location = useLocation();
   const [direction, setDirection] = useState("forward");
 
   return (
-    <AuthProvider>
+    
     <div className="min-h-screen w-[100%]">
+
       <Routes location={location}>
         <Route
           path="/Signin"
@@ -29,11 +31,12 @@ function App() {
         />
         <Route path="/Landing" element={<Landing />} />
         <Route path="/hire" element={<Hire/>} />
-        <Route path="/dashboard" element={<Dashbard/>}/>
+        <Route path="/dashboard" element={<Protected Component={Dashbard}/>}/>
         <Route path="/" element={<Navigate to="/landing" state={{ direction: "forward" }} />} />
       </Routes>
+
     </div>
-    </AuthProvider>
+
 // mmmm
   );
 }

@@ -22,6 +22,18 @@ const user = [
     name: "Bhhushan ",
     username: "bhush    ",
     email: "bhush@gmail.com",
+  },
+  {
+    id: "5",
+    name: "Bol ",
+    username: "bhush    ",
+    email: "bhushan@gmail.com",
+  },
+  {
+    id: "6",
+    name: "ping  ",
+    username: "ping     ",
+    email: "ping@gmail.com",
   }
 ];
 
