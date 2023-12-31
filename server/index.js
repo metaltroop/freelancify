@@ -125,6 +125,18 @@ app.get('/profile', (req, res) => {
   });
 });
 
+// app.get('/dash' , (req ,res ) => {
+//   const { token } = req.cookies;
+//   jwt.verify(token, secret, {}, async (err, info) => {
+//     if (err) throw err;
+//     const postDoc = await Post.create({
+
+//       bruh : info,
+//     });
+//     res.json(postDoc);
+//   });
+// })
+
 
 app.post('/logout' , (req, res) => {
   res.cookie('token', '').json('ok');

@@ -1,11 +1,22 @@
 import "./signin.css";
 import Logo from "../../assets/with-text.png";
+import { UserContext } from "../../UserContext";
+import { useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+
+import { useState, useContext } from "react";
 
 const Signin = () => {
 
   const [btnState, setBtnState] = useState(false);
+  const navigate = useNavigate();
+  const { isLogin } = useContext(UserContext);
+  if (isLogin) {
+    // Redirect to the dashboard
+    navigate("/dashboard");
+    return null; // Render nothing since the navigation will take care of the redirection
+  }
+
 
   function handleClick() {
     setBtnState((btnState) => !btnState);
