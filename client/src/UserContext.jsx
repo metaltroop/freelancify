@@ -1,7 +1,10 @@
 import { createContext, useState } from "react";
 import {PropTypes} from 'prop-types'
 
-export const UserContext = createContext({});
+export const UserContext = createContext({
+  userInfo: {}, // Default value for userInfo
+  setUserInfo: () => {},
+});
 
 export function UserContextProvider({ children }) {
   const [userInfo, setUserInfo] = useState({});

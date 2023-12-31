@@ -1,17 +1,13 @@
 import "./signup.css";
 import Logo from "../../assets/with-text.png";
 import { useNavigate } from "react-router-dom";
-import {useContext, useState } from "react";
-import { UserContext } from "../../UserContext";
-
+import { useState } from "react";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [Username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   // const [redirect, setRedirect] = useState(false);
-  const {setUserInfo} = useContext(UserContext);
-
 
   const navigate = useNavigate();
 
@@ -19,7 +15,7 @@ const Signup = () => {
     ev.preventDefault();
     const response = await fetch("http://localhost:3001/api/register", {
       method: "POST",
-      body: JSON.stringify({ Username,email, password }),
+      body: JSON.stringify({ username,email, password }),
       headers: { "Content-Type": "application/json" },
     });
     if (response.status === 200) {
@@ -42,12 +38,8 @@ const Signup = () => {
 
     if (response.ok) {
         // setRedirect(true);
-        response.json().then(userInfo => {
-          setUserInfo(userInfo);
-          // setRedirect(true);
         alert("login successfull")
         navigate('/landing')
-    });
     }else{
         alert('wrong credentials');
     }
@@ -226,7 +218,7 @@ const Signup = () => {
                         ></path>
                       </svg>
                       <input
-                        value={Username}
+                        value={username}
                         onChange={(ev) => setUsername(ev.target.value)}
                         type="text"
                         className="bg-transparent p-2 focus:outline-none"

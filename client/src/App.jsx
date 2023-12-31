@@ -7,7 +7,7 @@ import Hire from "./pages/HireFreelancers/Hire";
 import Signin from "./pages/Login/Signin";
 import Signup from "./pages/Register/Signup";
 import Dashbard from "./pages/dashboard/Dashbard";
-import Protected from "./component/Protected";
+// import Protected from "./component/Protected";
 import { UserContextProvider } from "./UserContext";
 // import { UserContextProvider } from "./UserContext";
 
@@ -32,7 +32,7 @@ function App() {
         />
         <Route path="/Landing" element={<Landing />} />
         <Route path="/hire" element={<Hire/>} />
-        <Route path="/dashboard" element={<Protected Component={Dashbard}/>}/>
+        <Route path="/dashboard" element={<Dashbard/>}/>
         <Route path="/" element={<Navigate to="/landing" state={{ direction: "forward" }} />} />
       </Routes>
       </UserContextProvider>

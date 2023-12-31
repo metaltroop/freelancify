@@ -23,7 +23,7 @@ app.use(cookieParser());
 // mongoose.connect('mongodb+srv://kalepiyush02:<password>@cluster0.9msle7h.mongodb.net/users')
 mongoose
   .connect(
-    "mongodb+srv://kalepiyush02:Metal1234@cluster0.9msle7h.mongodb.net/users",
+    "mongodb+srv://kalepiyush02:Metal1234@cluster0.9msle7h.mongodb.net/users3",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -33,37 +33,7 @@ mongoose
   .catch((err) => console.log(err));
 
 
-// app.post("/api/register", async (req, res) => {
-//   console.log(req.body);
-//   try {
-//     const user = await User.create({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: req.body.password,
-//     });
-//     res.json({ status: "ok" });
-//   } catch (err) {
-//     console.log(err);
-//     res.json({ status: "error", error: 'Duplicate email or username' });
-//   }
-// });
 
-// app.post("/api/register", async (req, res) => {
-//     console.log(req.body);  // Log the request body to inspect its contents
-  
-//     try {
-//       const user = await User.create({
-//         username: req.body.username,
-//         email: req.body.email,
-//         password: req.body.password,
-//       });
-  
-//       res.json({ status: "ok" });
-//     } catch (err) {
-//       console.log(err);
-//       res.json({ status: "error", error: 'Duplicate email or username' });
-//     }
-//   });
 
 app.post("/api/register", async (req, res) => {
   const { username, password ,email } = req.body;
@@ -80,55 +50,81 @@ app.post("/api/register", async (req, res) => {
    
   } 
 });
-  
 
-// app.post("/api/Login", async (req, res) => {
-  
-//     const user = await User.findOne({ 
-//         email: req.body.email, 
-//         password: req.body.password
-//      });
-
-    
-
-//     if (user){
-//         const token = jwt.sign({
-//             username: user.username,
-//              email: user.email
-//          }, "secret123");
-
-//         return res.json({ status: "ok",  token});
-//      }else{
-//         return res.json({ status: "ok", user: false });
-//      }
-  
+// app.post("/api/register", async (req, res) => {
+//   const { username, password, email } = req.body;
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, salt);
+//     const userDoc = await User.create({
+//       username,
+//       email,
+//       password: hashedPassword,
+//     });
+//     res.json(userDoc);
+//   } catch (e) {
+//     res.status(400).json(e);
+//   }
 // });
 
+  
 
-app.post('/api/login' , async (req, res) => {
-  const {email , password} = req.body;
-  const userDoc = await User.findOne({email});
-  const passOk = bcrypt.compareSync(password , userDoc.password);
-  if (passOk) {
-      // logged in
-      // res.json();
-      jwt.sign({email, id:userDoc._id}, secret, {}, (err, token) => {
-          if(err) throw err;
-          res.cookie('token' , token).json("ok");
-      } );
-  }else{
+
+
+// app.post('/api/login' , async (req, res) => {
+//   const {email , password} = req.body;
+//   const userDoc = await User.findOne({email});
+//   const passOk = bcrypt.compareSync(password , userDoc.password);
+//   if (passOk) {
+//       // logged in
+//       // res.json();
+//       jwt.sign({email, id:userDoc._id}, secret, {}, (err, token) => {
+//           if(err) throw err;
+//           res.cookie('token' , token).json("ok");
+//       } );
+//   }else{
+//       res.status(400).json('wrong credentials');
+//   }
+// });
+
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+  const userDoc = await User.findOne({ email });
+
+  if (userDoc) {
+    const passOk = bcrypt.compareSync(password, userDoc.password);
+
+    if (passOk) {
+      jwt.sign({ email, id: userDoc._id }, secret, {}, (err, token) => {
+        if (err) throw err;
+        res.cookie('token', token).json("ok");
+      });
+    } else {
       res.status(400).json('wrong credentials');
+    }
+  } else {
+    res.status(400).json('user not found'); // Handle the case where the user is not found
   }
 });
 
-app.get('/profile' , (req , res) => {
-  const {token} = req.cookies;
+
+
+
+app.get('/profile', (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token not provided' });
+  }
+
   jwt.verify(token, secret, {}, (err, info) => {
-    if (err) throw err;
+    if (err) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
     res.json(info);
-  } )
-  res.json(req.cookies);
+  });
 });
+
 
 app.post('/logout' , (req, res) => {
   res.cookie('token', '').json('ok');
