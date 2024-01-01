@@ -6,7 +6,7 @@ import user from "../assets/user.png"
 const Sidebar = () => {
   return (
     <>
-      <div className="w-[23%] bg-blue-400 h-screen rounded-r-3xl">
+      <div className="w-[23%] bg-blue-400 h-screen rounded-r-3xl fixed">
         <div className="flex flex-row flex-wrap gap-5 p-5 ">
           <img
             src={user}

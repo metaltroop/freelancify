@@ -50,7 +50,7 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/dashboard" element={<UserDashboard/>}>
-                <Route path="/dashboard/profile" element={Profile} />
+                <Route path="/dashboard" element={<Profile />} />
           </Route>
         </Routes>
       </UserContextProvider>
