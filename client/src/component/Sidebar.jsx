@@ -1,12 +1,11 @@
 // import { useState } from "react";
 import { Link } from "react-router-dom";
-import user from "../assets/user.png"
-
+import user from "../assets/user.png";
 
 const Sidebar = () => {
   return (
     <>
-      <div className="w-[23%] bg-blue-400 h-screen rounded-r-3xl fixed">
+      <div className="w-[25%] bg-blue-400 h-screen rounded-r-3xl ">
         <div className="flex flex-row flex-wrap gap-5 p-5 ">
           <img
             src={user}
@@ -19,9 +18,17 @@ const Sidebar = () => {
           </div>
         </div>
         <div>
-            <Link to={"/dashboard/Profile"}>
-                Profile
-            </Link>
+          <ul>
+            <li>
+              <Link to={"/dashboard/"}>Profile</Link>
+            </li>
+            <li>
+              <Link to={"/dashboard/Skills"}>Skills</Link>
+            </li>
+            <li>
+              <Link to={"/dashboard/Contactinfo"}>ContactInfo</Link>
+            </li>
+          </ul>
         </div>
       </div>
     </>

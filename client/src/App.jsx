@@ -13,6 +13,8 @@ import Dashbard from "./pages/dashboard/Dashbard";
 import PrivateRoutes from "./auth/PrivateRoutes";
 import UserDashboard from "./pages/dashboard/UserDashboard";
 import Profile from "./pages/Userdashboard/Profile";
+import Skills from "./pages/Userdashboard/Skills";
+import ContactInfo from "./pages/Userdashboard/ContactInfo";
 // import { UserContextProvider } from "./UserContext";
 
 function App() {
@@ -51,6 +53,9 @@ function App() {
         <Routes>
           <Route path="/dashboard" element={<UserDashboard/>}>
                 <Route path="/dashboard" element={<Profile />} />
+                {/* <Route path="/dashboard/profile" element={<Profile />} /> */}
+                <Route path="/dashboard/Skills" element={<Skills />} />
+                <Route path="/dashboard/Contactinfo" element={<ContactInfo />} />
           </Route>
         </Routes>
       </UserContextProvider>
