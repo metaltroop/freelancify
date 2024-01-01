@@ -12,6 +12,7 @@ import { UserContextProvider } from "./UserContext";
 import Dashbard from "./pages/dashboard/Dashbard";
 import PrivateRoutes from "./auth/PrivateRoutes";
 import UserDashboard from "./pages/dashboard/UserDashboard";
+import Profile from "./pages/Userdashboard/Profile";
 // import { UserContextProvider } from "./UserContext";
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
           />
           <Route path="/Landing" element={<Landing />} />
           <Route path="/hire" element={<Hire />} />
-          <Route path="/dashboard" element={<UserDashboard/>}/>
+          
           <Route element={<PrivateRoutes />}>
               <Route path='/admindashboard' element={<Dashbard />} />
           </Route>
@@ -46,6 +47,11 @@ function App() {
               <Navigate to="/landing" state={{ direction: "forward" }} />
             }
           />
+        </Routes>
+        <Routes>
+          <Route path="/dashboard" element={<UserDashboard/>}>
+                <Route path="/dashboard/profile" element={Profile} />
+          </Route>
         </Routes>
       </UserContextProvider>
     </div>
