@@ -11,6 +11,7 @@ import Signup from "./pages/Register/Signup";
 import { UserContextProvider } from "./UserContext";
 import Dashbard from "./pages/dashboard/Dashbard";
 import PrivateRoutes from "./auth/PrivateRoutes";
+import UserDashboard from "./pages/dashboard/UserDashboard";
 // import { UserContextProvider } from "./UserContext";
 
 function App() {
@@ -35,8 +36,9 @@ function App() {
           />
           <Route path="/Landing" element={<Landing />} />
           <Route path="/hire" element={<Hire />} />
+          <Route path="/dashboard" element={<UserDashboard/>}/>
           <Route element={<PrivateRoutes />}>
-              <Route path='/dashboard' element={<Dashbard />} />
+              <Route path='/admindashboard' element={<Dashbard />} />
           </Route>
           <Route
             path="/"

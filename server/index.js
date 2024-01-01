@@ -125,6 +125,9 @@ app.get('/profile', (req, res) => {
   });
 });
 
+app.post('/logout', (req,res) => {
+  res.cookie('token', '').json('ok');
+});
 // app.get('/dash' , (req ,res ) => {
 //   const { token } = req.cookies;
 //   jwt.verify(token, secret, {}, async (err, info) => {

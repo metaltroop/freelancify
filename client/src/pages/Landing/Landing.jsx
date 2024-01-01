@@ -262,8 +262,8 @@ function Landing() {
           Contact Us
         </div>
         <div className="flex gap-4 justify-center">
-          <div className="flex flex-col gap-4 w-[100%] m-20 pl-20">
-            <div className="text-4xl text-[#252525]">
+          <div className="flex flex-col gap-4 w-[100%] mt-20 pl-20">
+            <div className="text-3xl text-center text-[#252525]">
               We are here for you! How can we help?
             </div>
             <input
