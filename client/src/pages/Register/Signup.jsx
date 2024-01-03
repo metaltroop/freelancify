@@ -261,7 +261,7 @@ const Signup = () => {
                     type="submit"
                     className="p-2 shadow-2xl text-slate-200 bg-slate-600 rounded-md"
                   >
-                    REgister
+                    Register
                   </button>
                 </div>
               </div>
