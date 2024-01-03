@@ -3,88 +3,115 @@ import "./profile.css";
 // import Poppins from "../../assets/fonts/Poppins-Regular.ttf"
 
 const Profile = () => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    yearsOfExperience: "",
-    gender: "",
-    language: "",
-    portfolioLink: "",
-    selectedFile: null,
-    previewImage: null,
-  });
+  const [fullName, setFullName] = useState("");
+  const [exp, setExp] = useState("");
+  const [gender, setGender] = useState("");
+  const [files, setFiles] = useState("");
+  const [domain, setDomain] = useState("");
+  const [portfolio, setPortfolio] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    // Set the selected file
-    setFormData((prevData) => ({
-      ...prevData,
-      selectedFile: file,
-    }));
-
-    // Read and display the image preview
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prevData) => ({
-          ...prevData,
-          previewImage: reader.result,
-        }));
-      };
-      reader.readAsDataURL(file);
+  async function createNewPost(ev) {
+    const data = new FormData();
+    data.set("fullName", fullName);
+    data.set("exp", exp);
+    data.set("gender", gender);
+    data.set("domain", gender);
+    data.set("gender", gender);
+    data.set("file", files[0]);
+    ev.preventDefault();
+    console.log(files);
+    const response = await fetch("http://localhost:3001/post", {
+      method: "POST",
+      body: data,
+      credentials: "include",
+    });
+    if (response.ok) {
+      setRedirect(true);
     }
-  };
-  const handleRemoveImage = () => {
-    // Reset the selected file and preview image
-    setFormData((prevData) => ({
-      ...prevData,
-      selectedFile: null,
-      previewImage: null,
-    }));
-  };
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form data submitted:", formData);
-  };
+
+
+  // const [formData, setFormData] = useState({
+  //   fullName: "",
+  //   email: "",
+  //   yearsOfExperience: "",
+  //   gender: "",
+  //   language: "",
+  //   portfolioLink: "",
+  //   selectedFile: null,
+  //   previewImage: null,
+  // });
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+
+  // const handleFileChange = (e) => {
+
+  //   // Set the selected file
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     selectedFile: files,
+  //   }));
+
+  //   // Read and display the image preview
+  //   if (files) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFormData((prevData) => ({
+  //         ...prevData,
+  //         previewImage: reader.result,
+  //       }));
+  //     };
+  //     reader.readAsDataURL(files);
+  //   }
+  // };
+  // const handleRemoveImage = () => {
+  //   // Reset the selected file and preview image
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     selectedFile: null,
+  //     previewImage: null,
+  //   }));
+  // };
+
+
+
   return (
     <div className=" ">
       <div className=" ">
-        <form onSubmit={handleSubmit} className="">
+        <form onSubmit={createNewPost} className="">
           <div className=" p-2 mt-20 ml-20 mb-20  gridfr">
-            <div className="h-80 w-60 border- translate-y-[-60px] ">
+            <div className="w-80 border translate-y-[-60px] ">
               <label
                 htmlFor="image"
                 className=" block py-2 text-start text-white text-2xl  font-semibold  "
               >
                 Choose Profile Photo:
               </label>
-              {!formData.previewImage && ( <input
+              {/* {!formData.previewImage && ( <input
                 type="file"
                 id="image"
                 name="image"
                 accept="image/*"
                 onChange={handleFileChange}
-                className="border p-2 w-80 h-96 word-wrap items-center "
-              />)}
+                className=" p-2 word-wrap items-center "
+              />)} */}
              
-                {formData.previewImage && (
+                {/* {FormData.previewImage && (
                    <>
                    <div className="border-[2px] relative">
                      <img
                        src={formData.previewImage}
                        alt="Preview"
-                       className="p-2 w-80 h-96"
+                       className="p-2 object-cover"
                      />
                    </div>
                    <button
@@ -95,7 +122,7 @@ const Profile = () => {
                      Remove
                    </button>
                  </>
-                )}
+                )} */}
               
             </div>
 
@@ -111,8 +138,8 @@ const Profile = () => {
                   type="text"
                   id="fullName"
                   name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
+                  value={fullName}
+                  onChange={(ev) => setFullName(ev.target.value)}
                   required
                   className="border rounded-2xl text-2xl bg-gray-200 drop-shadow-2xl p-6  w-[86%]"
                 />
@@ -128,8 +155,6 @@ const Profile = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
                   className="border rounded-2xl text-2xl bg-gray-200 drop-shadow-2xl p-6  w-[86%]"
                 />
@@ -150,8 +175,8 @@ const Profile = () => {
                   type="number"
                   id="yearsOfExperience"
                   name="yearsOfExperience"
-                  value={formData.yearsOfExperience}
-                  onChange={handleChange}
+                  value={exp}
+                  onChange={(ev) => setExp(ev.target.value)}
                   min="0"
                   required
                   className="border rounded-2xl bg-gray-200 drop-shadow-2xl p-6  w-[80%]"
@@ -167,8 +192,8 @@ const Profile = () => {
                 <select
                   id="gender"
                   name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
+                  value={gender}
+                  onChange={(ev) => setGender(ev.target.value)}
                   required
                   className="border text-xl rounded-2xl bg-gray-200 drop-shadow-2xl p-6  w-[80%]"
                 >
@@ -189,17 +214,17 @@ const Profile = () => {
                   Language You Speak
                 </label>
                 <select
-                  id="language"
-                  name="language"
-                  value={formData.language}
-                  onChange={handleChange}
+                  id="Domain"
+                  name="Domain"
+                  value={domain}
+                  onChange={(ev) => setDomain(ev.target.value)}
                   required
                   className="border rounded-2xl bg-gray-200 text-black drop-shadow-2xl p-6  w-[80%]"
                 >
                   <option value=""></option>
-                  <option value="Hindi">Hindi</option>
-                  <option value="English">English</option>
-                  <option value="Marathi">Marathi</option>
+                  <option value="Hindi">WebDev</option>
+                  <option value="English">FullStack</option>
+                  <option value="Marathi">AI</option>
                 </select>
               </div>
               <div className="mx-4 justify-center">
@@ -213,8 +238,8 @@ const Profile = () => {
                   type="url"
                   id="portfolioLink"
                   name="portfolioLink"
-                  value={formData.portfolioLink}
-                  onChange={handleChange}
+                  value={portfolio}
+                  onChange={(ev) => setPortfolio(ev.target.value)}
                   required
                   className="border rounded-2xl bg-gray-200 drop-shadow-2xl p-6  w-[80%]"
                 />

@@ -1,7 +1,7 @@
 const ContactInfo = () => {
   return (
-    <div className="flex  justify-center p-10">
-      <form className="  w-[90%] h-[90vh] rounded-[20px] p-10  ">
+    <div className="flex items-center justify-center p-10">
+      <form className="  w-[90%] rounded-[20px] p-10  ">
         <div className=" bg-gray-200 flex flex-col justify-evenly rounded-[20px]  bg-opacity-70  gap-10 border py-20  px-20">
           <div className="flex  flex-row justify-start  items-center  gap-10">
             <div className="flex flex-row justify-evenly gap-4 items-center">
