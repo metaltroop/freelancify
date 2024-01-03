@@ -1,13 +1,14 @@
 import Sidebar from "../../component/Sidebar";
 import { Outlet } from "react-router-dom";
+import "./userdashboard.css"
 
 const UserDashboard = () => {
   return (
     <>
-      <div className="bg-slate-500">
+      <div className="gradient  ">
           <div className="flex">
             <Sidebar />
-            <div className="flex-grow p-4">
+            <div className="flex-grow p-2 ">
               <Outlet />
             </div>
           </div>
